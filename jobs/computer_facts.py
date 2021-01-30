@@ -1,4 +1,13 @@
-"""Log current computer stats to the DB."""
+"""Log current computer stats to the DB.
+
+The database DDL is:
+
+create table computer_facts (
+	ts_utc timestamp with time zone default CURRENT_TIMESTAMP not null,
+	fact_name text not null,
+	fact_value real not null
+);
+"""
 import argparse
 import os
 import shutil
