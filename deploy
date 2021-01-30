@@ -1,0 +1,14 @@
+#!/usr/bin/zsh
+
+# Deploy the crontab file into the system!
+# this is so dumb, it just replaces the WHOLE user crontab
+# One day, i oughtta make this a commit hook or CI thing.
+
+DIR=`dirname $0`
+
+# i do this in a subshell because i think maybe it prevents me from doing a CD in my 
+# actual real terminal.
+$(
+    cd $DIR; # Enter the jobs dir first
+    crontab < jobs.crontab
+)
