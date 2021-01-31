@@ -17,3 +17,4 @@ The crontab ought to be set up to run things off of the deployed subdirectory, s
 - [ ] This feels like a hacky reimplementation of airflow. If i end up caring about logging, etc, maybe I should implement a real solution.
 - [ ] Set up linting and testing in deployment.
 - [ ] Convert run/deploy scripts to Makefile targets.
+- [ ] Auto deploy on commit/push? CI?

@@ -2,16 +2,16 @@
 
 # Run a python job within the jobs environment.
 
-# Enter the jobs dir first
-DIR=`dirname $0`
-cd $DIR; 
-
 # set up zsh
 source $HOME/.zshrc
 
+# Enter the jobs dir
+DIR=`dirname $0`
+cd $DIR; 
+
 # export env vars
 set -o allexport
-[[ -f .env ]] && source .env
+source .env
 set +o allexport
 
 # set up pyenv
