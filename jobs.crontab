@@ -23,4 +23,4 @@
 # m h  dom mon dow   command
 
 
-*/5 * * * * $HOME/jobs/run -m jobs.computer_facts
+*/5 * * * * $HOME/jobs/deployed/run -m jobs.computer_facts

@@ -1,14 +1,18 @@
 #!/usr/bin/zsh
 
-# Deploy the crontab file into the system!
-# this is so dumb, it just replaces the WHOLE user crontab
+# Deploy the jobs into the system!
+#
+# This is so dumb, it just replaces the WHOLE user crontab each time.
+# It also literally COPIES the jobs to a dir so that those are tied to the crontab
+# 
 # One day, i oughtta make this a commit hook or CI thing.
 
-DIR=`dirname $0`
+HERE=`dirname $0`
 
-# i do this in a subshell because i think maybe it prevents me from doing a CD in my 
-# actual real terminal.
-$(
-    cd $DIR; # Enter the jobs dir first
-    crontab < jobs.crontab
-)
+cd $HERE;                                                # Enter the jobs dir first
+rm -rf deployed;                                         # nix the old deployment
+mkdir deployed;
+cp -rf {jobs,run,.python-version,.env} $HERE/deployed    # copy necessary files
+crontab < jobs.crontab;                                  # deploy the crontab
+
+echo 'Deployed!'

@@ -2,12 +2,14 @@
 
 # Run a python job within the jobs environment.
 
+# Enter the jobs dir first
 DIR=`dirname $0`
+cd $DIR; 
 
 # set up zsh
 source $HOME/.zshrc
 
-# env vars
+# export env vars
 set -o allexport
 [[ -f .env ]] && source .env
 set +o allexport
@@ -16,10 +18,5 @@ set +o allexport
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-# i do this in a subshell because i think maybe it prevents me from doing a CD in my 
-# actual real terminal.
-$(
-    cd $DIR; # Enter the jobs dir first
-    pyenv activate "$(cat .python-version)";
-    python $@
-)
+pyenv activate "$(cat .python-version)";
+python $@
