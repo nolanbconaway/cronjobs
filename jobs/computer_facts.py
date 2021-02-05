@@ -11,6 +11,7 @@ create table computer_facts (
 import argparse
 import os
 import shutil
+import subprocess
 
 import psutil
 import psycopg2
@@ -52,12 +53,25 @@ def memory_usage() -> float:
     return psutil.virtual_memory().percent / 100
 
 
+def rpi_temperature() -> float:
+    command = os.environ["RPI_SSH_COMMAND"].split()
+    command += ["/opt/vc/bin/vcgencmd", "measure_temp"]
+
+    out = subprocess.check_output(command).decode().strip()
+    assert out.startswith("temp="), out
+    assert out.endswith("'C"), out
+
+    temp_c = float(out[5:-2])
+    return (temp_c * 1.8) + 32
+
+
 FACTS = {
     "hd_use_pct": disk_usage,
     "cpu_use_pct": cpu_usage,
     "memory_use_pct": memory_usage,
     "gpu_temp_f": gpu_temp,
     "cpu_temp_f": cpu_temp,
+    "rpi_temp_f": rpi_temperature,
 }
 
 if __name__ == "__main__":

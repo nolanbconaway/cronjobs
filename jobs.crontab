@@ -22,5 +22,4 @@
 # 
 # m h  dom mon dow   command
 
-
-*/5 * * * * $HOME/jobs/deployed/run -m jobs.computer_facts
+0-59/5 * * * * $HOME/jobs/deployed/run -m jobs.computer_facts
